@@ -1,7 +1,7 @@
 # 💼 Portfólio — Keven Pereira
 
 ## 🌐 Acesse o projeto online
-➡️ **[https://meu-portifolio.vercel.app](meu-portifolio-red-six.vercel.app)** 
+➡️ **[[https://meu-portifolio.vercel.app](https://meu-portifolio-red-six.vercel.app/)]** 
 
 ---
 
