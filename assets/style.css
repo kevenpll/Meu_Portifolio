@@ -179,7 +179,8 @@ body{
 /* ==================== CONTATO MODERNO ==================== */
 .contact {
   padding: 4rem 0;
-  background: linear-gradient(180deg, #0a0c10 0%, #0b1116 100%);
+  background: none;
+  
 }
 
 .contact-container {
@@ -205,13 +206,33 @@ body{
   gap: 2.5rem;
   align-items: start;
 }
+.contact-form:hover,
+.contact-info:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
 
-.contact-form {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
+.contact-form input,
+.contact-form textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border-radius: 8px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(108, 92, 231, 0.2);
+}
+
+.contact-form,
+.contact-info {
+  background: var(--surface); /* exatamente igual ao card de projeto */
   border-radius: var(--radius);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: left;
 }
 
@@ -265,14 +286,6 @@ input:focus, textarea:focus {
 .send-btn:hover {
   background: #8e6efc;
   box-shadow: 0 0 15px rgba(108, 92, 231, 0.4);
-}
-
-.contact-info {
-  text-align: left;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .contact-info h3 {
@@ -468,3 +481,98 @@ body::after {
   }
 }
 
+/* ==================== FORMAÇÃO E CERTIFICAÇÕES ==================== */
+.education.section {
+  padding: 4rem 0;
+  background: linear-gradient(180deg, #0a0c10 0%, #0b1116 100%);
+  text-align: center;
+}
+
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0,5fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.edu-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.edu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(108, 92, 231, 0.3);
+}
+
+.edu-card h3 {
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.edu-institution {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.edu-period {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.edu-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.cert-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.8rem;
+}
+
+.cert-list li {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  margin: 0.4rem 0;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cert-list li::before {
+  content: "✔️";
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+
+.footer {
+  background: var(--surface); /* mesmo fundo dos cards e contato */
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* links no rodapé */
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: var(--text);
+}
