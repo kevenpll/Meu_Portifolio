@@ -60,39 +60,103 @@ body{
   margin-top: 1.5rem;
 }
 
+/* ===== Borda animada que gira sem rotacionar a imagem ===== */
+/* ===== Borda animada girando 360° (sem mover a imagem) ===== */
 .photo-wrap {
+  position: relative;
   width: 400px;
   height: 400px;
-  justify-self: center;
   border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid var(--accent);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
 }
 
-.profile {
-  width: 100%;
-  height: 100%;
+/* borda base — roda sempre, não é alterada no hover */
+.photo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 6px;
+  background: conic-gradient(from 0deg, #6c5ce7, #00ffff, #ff00c8, #6c5ce7);
+  z-index: 0;
+  pointer-events: none;
+  animation: spinBase 6s linear infinite;
+  transform-origin: center center;
+}
+
+/* 'buraco' interno (fundo) */
+.photo-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: linear-gradient(180deg,#04050a 0%, #0a1324 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* imagem fixa por cima */
+.photo-wrap .profile {
+  position: relative;
+  z-index: 3;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border-radius: 50%;
   object-fit: cover;
+  display: block;
 }
 
+/* camada rápida sobreposta (invisível por padrão) */
+.photo-wrap .ring-fast {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 6px;
+  background: conic-gradient(from 0deg, #6c5ce7, #00ffff, #be62da, #6c5ce7);
+  z-index: 2; /* acima do ::after mas abaixo da img (img z-index:3) */
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(0.6px); /* leve suavização */
+  transition: opacity 300ms ease;
+  mix-blend-mode: screen; /* opcional para visual mais interessante */
+  animation: spinFast 2.2s linear infinite;
+  transform-origin: center center;
+}
 
+/* keyframes */
+@keyframes spinBase {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes spinFast {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ao hover: apenas tornamos a camada rápida visível — não tocamos na animação base */
+.photo-wrap:hover .ring-fast {
+  opacity: 1;
+}
+
+/* hover adicional para um leve glow (opcional) */
+.photo-wrap:hover {
+  box-shadow: 0 12px 45px rgba(108,92,231,0.22);
+}
+
+/* responsivo */
 @media (max-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .photo-wrap {
-    margin: 2rem auto 0 auto;
-    width: 220px;
-    height: 220px;
-  }
-
-  .hero-info {
-    text-align: center;
-  }
+  .photo-wrap { width: 220px; height: 220px; }
+  .photo-wrap::after { inset: 6px; }
+  .photo-wrap .profile { width: calc(100% - 12px); height: calc(100% - 12px); }
+  .photo-wrap .ring-fast { inset: 0; padding: 6px; }
 }
+
+
+
 .lead{color:var(--muted);max-width:600px;margin:0.6rem auto 0 auto}
 .accent{color:var(--accent)}
 .btn{
@@ -364,3 +428,43 @@ button.btn{margin-top:0.8rem}
     width: 100%;
   }
 }
+
+/* === FUNDO COBRA GRADIENTE === */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(108, 92, 231, 0.12),
+    rgba(108, 92, 231, 0.12) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  background-size: 200% 200%;
+  animation: snakeFlow 12s linear infinite;
+  z-index: -2;
+  opacity: 0.05; /* intensidade do efeito */
+}
+
+/* leve gradiente fixo para profundidade */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(108, 92, 231, 0.1), transparent 90%);
+  z-index: -1;
+}
+
+@keyframes snakeFlow {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    transform: translateX(-25%) translateY(-25%);
+  }
+}
+
